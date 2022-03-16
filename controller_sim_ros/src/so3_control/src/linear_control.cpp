@@ -33,7 +33,6 @@ LinearControl::calculateControl(const Desired_State_t &des,
                         Gain gain)
 {
     /* WRITE YOUR CODE HERE */
-    Eigen::Vector3d angle = odom.q.matrix().eulerAngles(2, 0, 1);
 
     Eigen::Vector3d a_out;
     a_out[0] = des.a[0] + gain.Kv0 * (des.v[0] - odom.v[0]) + gain.Kp0 * (des.p[0] - odom.p[0]);
@@ -42,6 +41,7 @@ LinearControl::calculateControl(const Desired_State_t &des,
 
     u.thrust = LinearControl::mass_ * (LinearControl::g_ + a_out[2]);
 
+    Eigen::Vector3d angle = odom.q.matrix().eulerAngles(2, 0, 1);
     double phi = 1 / LinearControl::g_ * (a_out[0] * sin(angle[0]) - a_out[1] * cos(angle[0]));
     double theta = 1 / LinearControl::g_ * (a_out[0] * cos(angle[0]) + a_out[1] * sin(angle[0]));
 
