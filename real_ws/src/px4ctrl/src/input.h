@@ -49,7 +49,7 @@ public:
 class Odom_Data_t
 {
 public:
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+//  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   Eigen::Vector3d p;
   Eigen::Vector3d v;
   Eigen::Quaterniond q;
@@ -90,7 +90,7 @@ public:
 class Command_Data_t
 {
 public:
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+//  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   Eigen::Vector3d p;
   Eigen::Vector3d v;
   Eigen::Vector3d a;

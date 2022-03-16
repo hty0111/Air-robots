@@ -17,15 +17,26 @@ LinearControl::calculateControl(const Desired_State_t &des,
     Controller_Output_t &u)
 {
   /* WRITE YOUR CODE HERE */
-      //compute disired acceleration
-      Eigen::Vector3d des_acc(0.0, 0.0, 0.0);
-  
-      //supposed to be readonly, compute thrust by acc 
-      u.thrust = computeDesiredCollectiveThrustSignal(des_acc);
-  
-      //compute control attitude in the BODY frame
-      u.q = Eigen::Quaterniond(1.0,0.0,0.0,0.0);
+    //compute disired acceleration
+    Eigen::Vector3d des_acc(0.0, 0.0, 0.0);
+    des_acc[0] = Gain::Kv0 * (des.v[0] - odom.v[0]) + Gain::Kp0 * (des.p[0] - odom.p[0]);
+    des_acc[1] = Gain::Kv1 * (des.v[1] - odom.v[1]) + Gain::Kp1 * (des.p[1] - odom.p[1]);
+    des_acc[2] = Gain::Kv2 * (des.v[2] - odom.v[2]) + Gain::Kp2 * (des.p[2] - odom.p[2]) + 9.8;
+
+    //supposed to be readonly, compute thrust by acc
+    u.thrust = computeDesiredCollectiveThrustSignal(des_acc);
+
+    //compute control attitude in the BODY frame
+    u.q = Eigen::Quaterniond(1.0,0.0,0.0,0.0);
+
   /* WRITE YOUR CODE HERE */
+    Eigen::Vector3d angle = odom.q.matrix().eulerAngles(2, 0, 1);
+    double phi = 1 / 9.8 * (des_acc[0] * sin(angle[0]) - des_acc[1] * cos(angle[0]));
+    double theta = 1 / 9.8 * (des_acc[0] * cos(angle[0]) + des_acc[1] * sin(angle[0]));
+
+    u.q = Eigen::AngleAxisd(angle[0], Eigen::Vector3d::UnitZ()) *
+          Eigen::AngleAxisd(phi, Eigen::Vector3d::UnitX()) *
+          Eigen::AngleAxisd(theta, Eigen::Vector3d::UnitY());
 
   //used for debug
   debug_msg_.des_p_x = des.p(0);
