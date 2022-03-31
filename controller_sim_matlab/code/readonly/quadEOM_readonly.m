@@ -24,14 +24,14 @@ global params
 % x = true_state(1);
 % y = true_state(2);
 % z = true_state(3);
-xdot = true_state(4);
+xdot = true_state(4);   % Velocity
 ydot = true_state(5);
 zdot = true_state(6);
-qW = true_state(7);
+qW = true_state(7);     % Angular position
 qX = true_state(8);
 qY = true_state(9);
 qZ = true_state(10);
-p = true_state(11);
+p = true_state(11);     % Angular acceleration 
 q = true_state(12);
 r = true_state(13);
 Rot = QuatToRot([qW,qX,qY,qZ]');

@@ -1,5 +1,5 @@
 close all;
-clear all;
+clear;
 clc;
 addpath('./utils','./readonly');
 figure(1)

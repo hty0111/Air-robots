@@ -101,9 +101,9 @@ while (1)
     
     if time >= time_tol
         break;
-    end;    
+    end
     
-    %% Rlot Results
+    %% Plot Results
     if time - vis_time > vstep
         
         %% Plot quad, fov, and estimated quad, estimated_map, and sliding window

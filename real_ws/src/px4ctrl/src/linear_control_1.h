@@ -36,6 +36,5 @@ private:
   double computeDesiredCollectiveThrustSignal(const Eigen::Vector3d &des_acc);
   void resetThrustMapping(void);
 };
-Eigen::Vector3d toEulerAngle(Eigen::Quaterniond q);
-Eigen::Vector3d RtoEulerAngle(Eigen::Matrix3d R);
+
 #endif
