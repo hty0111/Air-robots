@@ -38,6 +38,7 @@ LinearControl::calculateControl(const Desired_State_t &des,
     a_out[0] = des.a[0] + gain.Kv0 * (des.v[0] - odom.v[0]) + gain.Kp0 * (des.p[0] - odom.p[0]);
     a_out[1] = des.a[1] + gain.Kv1 * (des.v[1] - odom.v[1]) + gain.Kp1 * (des.p[1] - odom.p[1]);
     a_out[2] = des.a[2] + gain.Kv2 * (des.v[2] - odom.v[2]) + gain.Kp2 * (des.p[2] - odom.p[2]);
+    ROS_INFO("%.2f, %.2f, %.2f", des.a[0], des.a[1], des.a[2]);
 
     u.thrust = LinearControl::mass_ * (LinearControl::g_ + a_out[2]);
 

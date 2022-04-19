@@ -37,7 +37,7 @@ LinearControl::calculateControl(const Desired_State_t &des,
     Eigen::Vector3d odomEuler;
     odomEuler = RtoEulerAngle(odomR);
 
-//    Eigen::Vector3d odomEuler = odom.q.matrix().eulerAngles(2, 1, 0);
+//    Eigen::Vector3d odomEuler = odom.q.matrix().eulerAngles(2, 0, 1);
 
     // Calculate control Euler angles
     double psi = odomEuler[2];
@@ -47,9 +47,10 @@ LinearControl::calculateControl(const Desired_State_t &des,
 
     // Quaternion from Euler angles
     Eigen::Quaterniond quaternion_c =
+	    Eigen::AngleAxisd(psi_c, Eigen::Vector3d::UnitZ()) *
             Eigen::AngleAxisd(phi_c, Eigen::Vector3d::UnitX()) *
-            Eigen::AngleAxisd(theta_c, Eigen::Vector3d::UnitY()) *
-            Eigen::AngleAxisd(psi_c, Eigen::Vector3d::UnitZ());
+            Eigen::AngleAxisd(theta_c, Eigen::Vector3d::UnitY());
+            
 
     // Coordinate transformation
     u.q = imu.q * odom.q.inverse() * quaternion_c;

@@ -1,0 +1,8 @@
+.*
+!.git
+!.gitignore
+*make*
+!CMakeLists.txt
+build
+devel
+
